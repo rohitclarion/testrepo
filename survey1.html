@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Survey Form</title>
+    <style>
+        th, td, p, input, h {
+            font:15px 'Segoe UI';
+        }
+        table, th, td {
+            border: solid 1px #ddd;
+            border-collapse: collapse;
+            padding: 2px 90px;
+            text-align: center;
+			margin: 20px 500px;
+	
+        }
+        th {
+            font-weight:bold;
+        }
+		
+		#description {
+	margin-top: 2.75em;
+	text-align: center;
+	font-size: 1.75em;
+}
+		
+		.button {
+  background-color: gray; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  	width: 8em;
+	height: 8em;
+	margin: 80px 70px;
+	
+	
+
+}
+
+.button1{border-radius: 12px;
+  }
+  
+#survey-form {
+	margin: auto;
+	margin-top: 2em;
+	margin-bottom: 2.55em;
+	padding: 0 1.75em;
+	max-width: 56em;
+	font-size: 1.55em;
+}
+	#survey-form div {
+		margin-top: 3.75em;
+	}
+	
+	#description {
+	margin-top: 1em;
+	text-align: center;
+	font-size: 1.75em;
+}
+}
+  
+    </style>
+
+</head>
+<body>
+	<p id="description">Survey Dashboard</p>
+<div align="center">
+		<label for="report">Report:</label>
+<input type="date" id="report" name="report"> </div></br>
+    <button class="button button1" type='button' onclick='tableFromJson(0)' 
+    	> How is your health</button>
+		<button class="button button1" type='button' onclick='tableFromJson(1)' 
+    	> How is your health</button>
+    <button class="button button1" type='button' onclick='tableFromJson(2)' 
+    	> How is your health</button>
+    <button class="button button1" type='button' onclick='tableFromJson(3)' 
+    	> How is your health</button>
+    
+        <input class="button button1" type='button' onclick='tableFromJson(4)' 
+    	value='Question 1' />
+		
+    <p id='showData'></p>
+</body>
+
+<script>
+
+ var myBooks = [
+            {'Staff ID': '1', 'Answer': 'Excellent'
+                
+            },
+            {'Staff ID': '2', 'Answer': 'Good'
+                     
+			},
+            {'Staff ID': '3', 'Answer': 'Need Help'
+               			
+            }
+        ]
+		
+    function tableFromJson(dataId) {
+		// the json data. (you can change the values for output.)
+
+       
+
+              var col = [];
+		var dataIndex;
+		var tableRowCount = myBooks.length;
+        for (var i = 0; i < myBooks.length; i++) {
+            for (var key in myBooks[i]) {
+				if((dataId !== undefined && dataId === i)) {
+						dataIndex = i;
+					}
+				if(col.indexOf(key) === -1){
+					col.push(key);
+				}
+            }
+        }
+
+        // Create a table.
+        var table = document.createElement("table");
+
+        // Create table header row using the extracted headers above.
+        var tr = table.insertRow(-1);                   // table row.
+
+        for (var i = 0; i < col.length; i++) {
+            var th = document.createElement("th");      // table header.
+            th.innerHTML = col[i];
+            tr.appendChild(th);
+        }
+
+        // add json data to the table as rows.
+		if(dataIndex !== undefined){
+			tableRowCount = 1;
+		}
+        for (var i = 0; i < tableRowCount; i++) {
+
+            tr = table.insertRow(-1);
+
+            for (var j = 0; j < col.length; j++) {
+				var tabCell;
+				if(dataIndex !== undefined){
+					tabCell = tr.insertCell(-1);
+					tabCell.innerHTML = myBooks[dataIndex][col[j]];
+				}
+                else{
+					tabCell = tr.insertCell(-1);
+					tabCell.innerHTML = myBooks[i][col[j]];
+				}
+            }
+        }
+
+        // Now, add the newly created table with json data, to a container.
+        var divShowData = document.getElementById('showData');
+        divShowData.innerHTML = "";
+        divShowData.appendChild(table);
+        }
+    
+ </script>
+</html>
