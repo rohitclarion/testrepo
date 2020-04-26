@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Survey Form</title>
+    <style>
+		html, body {
+		background-color: black;
+		}
+
+        th, td, p, input, h {
+            font:13px 'Segoe UI';
+        }
+        table, th, td {
+            border: solid 1px #ddd;
+            border-collapse: collapse;
+            padding: 5px 90px;
+            text-align: center;
+			margin: 20px 240px;
+			color: white;
+        }
+        th {
+            font-weight:bold;
+        }
+		
+		#description {
+		margin-top: 2.75em;
+		text-align: center;
+		font-size: 4.75em;
+		color: white;
+		}
+		
+		.button {
+		background-color: gray; 
+		border: none;
+		color: white;
+		padding: 2px;
+		text-align: center;
+		text-decoration: none;
+		font-size: 14px  'Segoe UI';
+		cursor: pointer;
+		width: 9.5em;
+		height: 9.5em;
+		margin: 80px 70px;
+		text-rendering: auto;
+		}
+
+		.button1{border-radius: 20px;
+		}
+  
+		#survey-form {
+		margin: auto;
+		margin-top: 2em;
+		margin-bottom: 2.55em;
+		padding: 0 1.75em;
+		max-width: 56em;
+		font-size: 1.55em;
+		}
+		
+		#survey-form div {
+		margin-top: 3.75em;
+		}
+	
+		#description {
+		margin-top: 0.2em;
+		text-align: center;
+		font-size: 3.75em;
+		
+		color: white;
+		}
+
+		.calender{
+		max-width: 9.5em;
+		}
+		
+		#reporttitle {
+		font-size: 0.75em;
+		color: white;
+		}
+		
+ 
+    </style>
+
+</head>
+<body>
+	<p  id="description">Survey Dashboard</p>
+<div align="center">
+		<label id="reporttitle" for="report">Report:</label>
+<input class="calender" type="date" id="report" name="report"> </div></br>
+<div>
+    <button class="button button1" type='button' onclick='tableFromJson(0)' 
+    	> How is your Physical / Mental health?</button>
+		<button class="button button1" type='button' onclick='tableFromJson(1)' 
+    	> How is your Family and externam factors treating you?</button>
+    <button class="button button1" type='button' onclick='tableFromJson(2)' 
+    	> Would you need a conversation with me ?</button>
+    <button class="button button1" type='button' onclick='tableFromJson(3)' 
+    	> How is your work from home experience?</button>
+	<button class="button button1" type='button' onclick='tableFromJson(3)' 
+    	> Do you have any idea/suggestion for a Colleague/Team?</button>
+        </div>
+		
+    <p id='showData'></p>
+</body>
+
+<script>
+
+ var myBooks = [
+            {'Name': 'ROhit Ware', 'Answer': 'Excellent', 'Email': 'rohit.ware@hsbc.co.in'
+                
+            },
+            {'Name': 'Rohit Vijay Ware', 'Answer': 'Good','Email': 'rohit.ware@hsbwerwerwerc.co.in'
+                     
+			},
+            {'Name': 'THis is rohit', 'Answer': 'Need Help', 'Email': 'rohit.wawerwerwerre@hsbc.co.in'
+               			
+            }
+        ]
+		
+    function tableFromJson(dataId) {
+       
+              var col = [];
+		var dataIndex;
+		var tableRowCount = myBooks.length;
+        for (var i = 0; i < myBooks.length; i++) {
+            for (var key in myBooks[i]) {
+				if((dataId !== undefined && dataId === i)) {
+						dataIndex = i;
+					}
+				if(col.indexOf(key) === -1){
+					col.push(key);
+				}
+            }
+        }
+
+        var table = document.createElement("table");
+
+        var tr = table.insertRow(-1);                  
+
+        for (var i = 0; i < col.length; i++) {
+            var th = document.createElement("th");     
+            th.innerHTML = col[i];
+            tr.appendChild(th);
+        }
+
+		if(dataIndex !== undefined){
+			tableRowCount = 1;
+		}
+        for (var i = 0; i < tableRowCount; i++) {
+
+            tr = table.insertRow(-1);
+
+            for (var j = 0; j < col.length; j++) {
+				var tabCell;
+				if(dataIndex !== undefined){
+					tabCell = tr.insertCell(-1);
+					tabCell.innerHTML = myBooks[dataIndex][col[j]];
+				}
+                else{
+					tabCell = tr.insertCell(-1);
+					tabCell.innerHTML = myBooks[i][col[j]];
+				}
+            }
+        }
+
+        var divShowData = document.getElementById('showData');
+        divShowData.innerHTML = "";
+        divShowData.appendChild(table);
+        }
+    
+ </script>
+</html>
